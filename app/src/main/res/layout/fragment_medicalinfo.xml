@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="cz.barush.medicaltag.TagInfoActivity$PlaceholderFragment">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tag_bloodType"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"/>
+    <Spinner
+        android:id="@+id/tag_bloodGroup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/bloodTypes_array"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"/>
+
+    <EditText
+        android:id="@+id/tag_allergies"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/tag_allergies"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:inputType="textMultiLine" />
+    <EditText
+        android:id="@+id/tag_medicaments"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/tag_medicamentInUse"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:inputType="textMultiLine" />
+
+    <CheckBox android:id="@+id/tag_diabetes"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tag_haveDiabetes"/>
+
+
+</LinearLayout>

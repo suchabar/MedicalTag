@@ -1,0 +1,259 @@
+<resources>
+    <string name="app_name">Medical Tag</string>
+
+    <string name="title_activity_tutorial">Jak se používá Medical Tag</string>
+    <string name="title_actvity_taginformation">Informace na tagu</string>
+
+    <string name="action_settings">Nastavení</string>
+    <string name="action_about">O aplikaci &amp; Hodnocení</string>
+
+    <string name="tag_groupName">Jméno skupiny</string>
+    <string name="tag_firstGroupName">Rodina</string>
+    <string name="tag_name">Vaše celé jméno</string>
+    <string name="tag_dateOfBirth">Datum narození</string>
+    <string name="tag_gender">Pohlaví</string>
+    <string name="tag_woman">Žena</string>
+    <string name="tag_man">Muž</string>
+    <string name="tag_isPregnant">Jste těhotná ?</string>
+    <string name="tag_state">Stát</string>
+    <string name="tag_insuranceInfo">Zprostředkovatel pojištění</string>
+    <string name="tag_weight">Váha</string>
+    <string name="tag_height">Výška</string>
+    <string name="tag_bloodType">Krevní skupina</string>
+    <string name="tag_haveDiabetes">Máte cukrovku ?</string>
+    <string name="tag_allergies">Alergie</string>
+    <string name="tag_medicamentInUse">Aktuálně užívané léky</string>
+
+    <string name="tagPlease">Přiložte Medical Tag pod fotoaparát</string>
+    <string name="tag_successfullyWritten">Vaše informace byly úspěšně uloženy do Vašeho Medical Tagu :)</string>
+    <string name="tag_notEnabled">NFC není momentálně zapnuto, jděte do nastavení Vašeho telefonu, zapněte ho a vraťte se do aplikace :)</string>
+    <string name="tag_notSupported">NFC není bohužel podporováno Vaším mobilem, nemůžete tedy tuto aplikaci používat :(</string>
+    <string name="tag_tab_maininfo">Hlavní</string>
+    <string name="tag_tab_medical">Anamnéza</string>
+    <string name="tag_tab_contacts">Nouzové kontakty</string>
+
+    <string name="tag_saveTag">Uložit Tag</string>
+    <string name="tag_upload">Nahrát na Tag</string>
+
+    <string name="tab_myTags">Mé Tagy</string>
+    <string name="tab_getTags">Získat Tagy</string>
+
+    <string-array name="countries_array">
+        <item>Afghánistán</item>
+        <item>Albánie</item>
+        <item>Alžírsko</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Antigua a Barbuda</item>
+        <item>Argentina</item>
+        <item>Arménie</item>
+        <item>Austrálie</item>
+        <item>Ázerbájdžán</item>
+        <item>Bahamy</item>
+        <item>Bahrajn</item>
+        <item>Bangladéš</item>
+        <item>Barbados</item>
+        <item>Belgie</item>
+        <item>Belize</item>
+        <item>Belorusko</item>
+        <item>Benin</item>
+        <item>Bhútán</item>
+        <item>Bolívie</item>
+        <item>Bosna a Hercegovina</item>
+        <item>Botswana</item>
+        <item>Brazílie</item>
+        <item>Brunej</item>
+        <item>Bulharsko</item>
+        <item>Burkina Faso</item>
+        <item>Burundi</item>
+        <item>Cookovy ostrovy</item>
+        <item>Cad</item>
+        <item>Cerná Hora</item>
+        <item>Ceská republika</item>
+        <item>Cínská lidová republika (Cína)</item>
+        <item>Cínská republika (Tchaj-wan)</item>
+        <item>Dánsko</item>
+        <item>Demokratická republika Kongo</item>
+        <item>Dominika</item>
+        <item>Dominikánská republika</item>
+        <item>Džibutsko</item>
+        <item>Egypt</item>
+        <item>Ekvádor</item>
+        <item>Eritrea</item>
+        <item>Estonsko</item>
+        <item>Etiopie</item>
+        <item>Fidži</item>
+        <item>Filipíny</item>
+        <item>Finsko</item>
+        <item>Francie</item>
+        <item>Gabon</item>
+        <item>Gambie</item>
+        <item>Ghana</item>
+        <item>Grenada</item>
+        <item>Gruzie</item>
+        <item>Guatemala</item>
+        <item>Guinea</item>
+        <item>Guinea–Bissau</item>
+        <item>Guyana</item>
+        <item>Haiti</item>
+        <item>Honduras</item>
+        <item>Chile</item>
+        <item>Chorvatsko</item>
+        <item>Indie</item>
+        <item>Indonésie</item>
+        <item>Irák</item>
+        <item>Írán</item>
+        <item>Irsko</item>
+        <item>Island</item>
+        <item>Itálie</item>
+        <item>Izrael</item>
+        <item>Jamajka</item>
+        <item>Japonsko</item>
+        <item>Jemen</item>
+        <item>Jihoafrická republika</item>
+        <item>Jižní Korea</item>
+        <item>Jižní Súdán</item>
+        <item>Jordánsko</item>
+        <item>Kambodža</item>
+        <item>Kamerun</item>
+        <item>Kanada</item>
+        <item>Kapverdy</item>
+        <item>Katar</item>
+        <item>Kazachstán</item>
+        <item>Kena</item>
+        <item>Kiribati</item>
+        <item>Kolumbie</item>
+        <item>Komory</item>
+        <item>Kongo</item>
+        <item>Kosovo</item>
+        <item>Kostarika</item>
+        <item>Kuba</item>
+        <item>Kuvajt</item>
+        <item>Kypr</item>
+        <item>Kyrgyzstán</item>
+        <item>Laos</item>
+        <item>Lesotho</item>
+        <item>Libanon</item>
+        <item>Libérie</item>
+        <item>Libye</item>
+        <item>Lichtenštejnsko</item>
+        <item>Litva</item>
+        <item>Lotyšsko</item>
+        <item>Lucembursko</item>
+        <item>Madagaskar</item>
+        <item>Madarsko</item>
+        <item>Makedonie</item>
+        <item>Malajsie</item>
+        <item>Malawi</item>
+        <item>Maledivy</item>
+        <item>Mali</item>
+        <item>Malta</item>
+        <item>Maroko</item>
+        <item>Marshallovy ostrovy</item>
+        <item>Mauricius</item>
+        <item>Mauritánie</item>
+        <item>Mexiko</item>
+        <item>Mikronésie</item>
+        <item>Moldavsko</item>
+        <item>Monako</item>
+        <item>Mongolsko</item>
+        <item>Mosambik</item>
+        <item>Myanmar</item>
+        <item>Namíbie</item>
+        <item>Nauru</item>
+        <item>Nemecko</item>
+        <item>Nepál</item>
+        <item>Niger</item>
+        <item>Nigérie</item>
+        <item>Nikaragua</item>
+        <item>Niue</item>
+        <item>Nizozemsko</item>
+        <item>Norsko</item>
+        <item>Nový Zéland</item>
+        <item>Omán</item>
+        <item>Pákistán</item>
+        <item>Palau</item>
+        <item>Panama</item>
+        <item>Papua-Nová Guinea</item>
+        <item>Paraguay</item>
+        <item>Peru</item>
+        <item>Pobreží slonoviny</item>
+        <item>Polsko</item>
+        <item>Portugalsko</item>
+        <item>Rakousko</item>
+        <item>Rovníková Guinea</item>
+        <item>Rumunsko</item>
+        <item>Rusko</item>
+        <item>Rwanda</item>
+        <item>Recko</item>
+        <item>Salvador</item>
+        <item>Samoa</item>
+        <item>San Marino</item>
+        <item>Saúdská Arábie</item>
+        <item>Senegal</item>
+        <item>Severní Korea</item>
+        <item>Seychely</item>
+        <item>Sierra Leone</item>
+        <item>Singapur</item>
+        <item>Slovensko</item>
+        <item>Slovinsko</item>
+        <item>Somálsko</item>
+        <item>Spojené arabské emiráty</item>
+        <item>Spojené státy americké (USA)</item>
+        <item>Srbsko</item>
+        <item>Stredoafrická republika</item>
+        <item>Súdán</item>
+        <item>Surinam</item>
+        <item>Svatá Lucie</item>
+        <item>Svatý Kryštof a Nevis</item>
+        <item>Svatý Tomáš a Princuv ostrov</item>
+        <item>Svatý Vincenc a Grenadiny</item>
+        <item>Svazijsko</item>
+        <item>Sýrie</item>
+        <item>Šalamounovy ostrovy</item>
+        <item>Španelsko</item>
+        <item>Šrí Lanka</item>
+        <item>Švédsko</item>
+        <item>Švýcarsko</item>
+        <item>Tádžikistán</item>
+        <item>Tanzanie</item>
+        <item>Thajsko</item>
+        <item>Togo</item>
+        <item>Tonga</item>
+        <item>Trinidad a Tobago</item>
+        <item>Tunisko</item>
+        <item>Turecko</item>
+        <item>Turkmenistán</item>
+        <item>Tuvalu</item>
+        <item>Uganda</item>
+        <item>Ukrajina</item>
+        <item>Uruguay</item>
+        <item>Uzbekistán</item>
+        <item>Vanuatu</item>
+        <item>Vatikán</item>
+        <item>Velká Británie (Spojené království)</item>
+        <item>Venezuela</item>
+        <item>Vietnam</item>
+        <item>Východní Timor</item>
+        <item>Zambie</item>
+        <item>Západní Sahara</item>
+        <item>Zimbabwe</item>
+    </string-array>
+
+    <string-array name="bloodTypes_array">
+        <item>A +</item>
+        <item>A -</item>
+        <item>B +</item>
+        <item>B -</item>
+        <item>AB +</item>
+        <item>AB -</item>
+        <item>0 +</item>
+        <item>0 -</item>
+    </string-array>
+
+    <string-array name="groupNames">
+        <item>Family</item>
+        <item>Ski course - kvinta</item>
+    </string-array>
+
+</resources>
