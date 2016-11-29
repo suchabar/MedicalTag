@@ -1,13 +1,15 @@
 package cz.barush.medicaltag;
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
-import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.design.widget.FloatingActionButton;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -21,11 +23,10 @@ import android.view.View;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cz.barush.medicaltag.fragments.GetStickerFragment;
 import cz.barush.medicaltag.fragments.GetTagsFragment;
 import cz.barush.medicaltag.fragments.MyTagsFragment;
 import cz.barush.medicaltag.model.Tag;
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_myTags)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_getTags)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_getBand)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_getSticker)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.container);
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new MyTagsFragment());
         fragments.add(new GetTagsFragment());
+        fragments.add(new GetStickerFragment());
         final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), fragments);
 
         viewPager.setAdapter(adapter);
@@ -83,31 +86,35 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                StaticPool.tagToSave = new Tag();
                 Intent intent = new Intent(MainActivity.this, TagInfoActivity.class);
                 startActivity(intent);
             }
         });
-
     }
 
     private void loadUsersTags()
     {
-        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
         Gson gson = new Gson();
-        Map<String, String> tags = (Map<String,String>) prefs.getAll();
-        for(String key : tags.keySet())
+        Map<String, String> tags = (Map<String, String>) prefs.getAll();
+        if (!tags.isEmpty())
         {
-            String json = prefs.getString(key, "");
-            Tag medTag = gson.fromJson(json, Tag.class);
-            if(StaticPool.groupTags.get(medTag.getGroup()) == null)StaticPool.groupTags.put(medTag.getGroup(), new ArrayList<Tag>());
-            StaticPool.groupTags.get(medTag.getGroup()).add(medTag);
+            StaticPool.groupTags.clear();
+            for (String key : tags.keySet())
+            {
+                //String json = prefs.getString(key, "");
+                //Tag medTag = gson.fromJson(json, Tag.class);
+                Tag medTag = StaticPool.createTagFromString(tags.get(key));
+                if (medTag != null)
+                {
+                    if (StaticPool.groupTags.get(medTag.getGroup()) == null)StaticPool.groupTags.put(medTag.getGroup(), new ArrayList<Tag>());
+                    StaticPool.groupTags.get(medTag.getGroup()).add(medTag);
+                }
+            }
         }
-    }
 
-    public void navigateToTagInfo()
-    {
-        Intent intent = new Intent(this, TagInfoActivity.class);
-        startActivity(intent);
     }
 
     @Override
@@ -127,36 +134,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
+        if(id == R.id.action_about)
         {
-            return true;
+            Intent intent = new Intent(MainActivity.this, AboutSettingsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onNewIntent(Intent intent)
-    {
-//        super.onNewIntent(intent);
-//        if (intent != null && NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()))
-//        {
-//            Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-//            if (rawMessages != null)
-//            {
-//                NdefMessage[] messages = new NdefMessage[rawMessages.length];
-//                Tag newTag = new Tag();
-//                for (int i = 0; i < rawMessages.length; i++)
-//                {
-//                    messages[i] = (NdefMessage) rawMessages[i];
-//                    for (int j = 0; j < messages[i].getRecords().length; j++)
-//                    {
-//
-//                    }
-//                }
-//                // Process the messages array.
-//
-//            }
-//        }
-    }
 }

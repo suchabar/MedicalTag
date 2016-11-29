@@ -1,26 +1,29 @@
 package cz.barush.medicaltag;
 
+import android.Manifest;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -32,6 +35,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import cz.barush.medicaltag.fragments.TagContactsFragment;
 import cz.barush.medicaltag.fragments.TagMainInfoFragment;
@@ -40,7 +44,7 @@ import cz.barush.medicaltag.model.Tag;
 
 public class TagInfoActivity extends AppCompatActivity
 {
-    private Tag medicalTag;
+    final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1234;
     private android.nfc.Tag currentTag;
     private NdefMessage message;
     private NFCManager nfcMger;
@@ -50,6 +54,7 @@ public class TagInfoActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        checkPermissions();
         setContentView(R.layout.activity_taginfo);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -94,53 +99,31 @@ public class TagInfoActivity extends AppCompatActivity
 
             }
         });
+
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                uploadDataViaNFC();
+            }
+        });
+    }
+
+    private void checkPermissions()
+    {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_CONTACTS}, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+        }
     }
 
     public void uploadDataViaNFC()
     {
-        medicalTag = new Tag();
-        medicalTag.setName(((EditText) findViewById(R.id.tag_name)).getText().toString());
-        DatePicker dob = ((DatePicker) findViewById(R.id.tag_dateOfBirth));
-        medicalTag.setDateOfBirth(dob.getDayOfMonth() + "/" + dob.getMonth() + "/" + dob.getYear());
-        medicalTag.setState(((AutoCompleteTextView) findViewById(R.id.tag_state)).getText().toString());
-        //SETTING GENDER
-        boolean isWoman = ((RadioButton) findViewById(R.id.tag_woman)).isChecked();
-        boolean isMan = ((RadioButton) findViewById(R.id.tag_man)).isChecked();
-        if (isWoman) medicalTag.setGender(0);
-        else if (isMan) medicalTag.setGender(1);
-        else medicalTag.setGender(2);
-        //SETTING IF PREGNANT
-        CheckBox isPregnantBox = (CheckBox)findViewById(R.id.tag_pregnant);
-        if(isPregnantBox.getVisibility() == View.VISIBLE && isPregnantBox.isChecked())medicalTag.setPregnant(true);
-        //SETTING WEIGHT
-        String usersWeight = ((EditText) findViewById(R.id.tag_weight)).getText().toString();
-        if(!usersWeight.isEmpty())medicalTag.setWeight(Integer.parseInt(usersWeight));
-        //SETTING HEIGHT
-        String usersHeight = ((EditText) findViewById(R.id.tag_height)).getText().toString();
-        if(!usersHeight.isEmpty())medicalTag.setHeight(Integer.parseInt(usersHeight));
-        //SETTING INSURANCE
-        String usersInsurance = ((EditText) findViewById(R.id.tag_insurance)).getText().toString();
-        if(!usersInsurance.isEmpty())medicalTag.setInsuranceInfo(usersInsurance);
-        //SETTING BLOOD GROUP
-        String bloodGroup = ((Spinner) findViewById(R.id.tag_bloodGroup)).getSelectedItem().toString();
-        if(!bloodGroup.isEmpty())medicalTag.setBloodType(bloodGroup);
-        //SETTING IF DIABETES
-        CheckBox haveDiabetes = (CheckBox)findViewById(R.id.tag_diabetes);
-        if(haveDiabetes.isChecked())medicalTag.setHaveDiabetes(true);
-        //SETTING ALLERGIES
-        String allergies = ((EditText) findViewById(R.id.tag_allergies)).getText().toString();
-        if(!allergies.isEmpty())medicalTag.setAllergies(allergies);
-        //SETTING MEDICAMENTS IN USE
-        String medicamentsInUse = ((EditText) findViewById(R.id.tag_medicaments)).getText().toString();
-        if(!medicamentsInUse.isEmpty())medicalTag.setMedicamentsInUse(medicamentsInUse);
-        //SETTING GROUP NAME
-        String groupName = ((Spinner) findViewById(R.id.tag_groupName)).getSelectedItem().toString();
-        if(!groupName.isEmpty())medicalTag.setGroup(groupName);
-
         //SAVING NEW TAG
         saveNewTag();
-
-        message = nfcMger.createTextMessage(medicalTag.toString());
+        message = nfcMger.createTextMessage(StaticPool.tagToSave.toString());
         if (message != null)
         {
             dialog = new ProgressDialog(TagInfoActivity.this);
@@ -151,11 +134,17 @@ public class TagInfoActivity extends AppCompatActivity
 
     private void saveNewTag()
     {
-        SharedPreferences pref = getPreferences(MODE_PRIVATE);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor prefsEditor = pref.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(medicalTag);
-        prefsEditor.putString(medicalTag.getName(), json);
+        String compressedTag;
+//            compressedTag = gson.toJson(StaticPool.tagToSave);
+        compressedTag = StaticPool.compressTagToString(StaticPool.tagToSave);
+        if(StaticPool.groupTags.containsKey(StaticPool.tagToSave.getName()))
+        {
+            prefsEditor.remove(StaticPool.tagToSave.getName());
+        }
+        prefsEditor.putString(StaticPool.tagToSave.getName(), compressedTag);
         prefsEditor.commit();
     }
 
@@ -191,7 +180,6 @@ public class TagInfoActivity extends AppCompatActivity
         try
         {
             nfcMger.verifyNFC();
-            //nfcMger.enableDispatch();
             Intent nfcIntent = new Intent(this, getClass());
             nfcIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, nfcIntent, 0);
@@ -199,10 +187,12 @@ public class TagInfoActivity extends AppCompatActivity
             String[][] techList = new String[][]{{android.nfc.tech.Ndef.class.getName()}, {android.nfc.tech.NdefFormatable.class.getName()}};
             NfcAdapter nfcAdpt = NfcAdapter.getDefaultAdapter(this);
             nfcAdpt.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techList);
-        } catch (NFCManager.NFCNotSupported nfcnsup)
+        }
+        catch (NFCManager.NFCNotSupported nfcnsup)
         {
             Snackbar.make(findViewById(R.id.container), getString(R.string.tag_notSupported), Snackbar.LENGTH_LONG).show();
-        } catch (NFCManager.NFCNotEnabled nfcnEn)
+        }
+        catch (NFCManager.NFCNotEnabled nfcnEn)
         {
             Snackbar.make(findViewById(R.id.container), getString(R.string.tag_notEnabled), Snackbar.LENGTH_LONG).show();
         }
@@ -213,7 +203,7 @@ public class TagInfoActivity extends AppCompatActivity
     protected void onPause()
     {
         super.onPause();
-        nfcMger.disableDispatch();
+        if(nfcMger != null)nfcMger.disableDispatch();
     }
 
     @Override
@@ -227,6 +217,8 @@ public class TagInfoActivity extends AppCompatActivity
             nfcMger.writeTag(currentTag, message);
             dialog.dismiss();
             Snackbar.make(findViewById(R.id.container), getString(R.string.tag_successfullyWritten), Snackbar.LENGTH_LONG).show();
+            Intent in = new Intent(TagInfoActivity.this, MainActivity.class);
+            startActivity(in);
 
         } else
         {

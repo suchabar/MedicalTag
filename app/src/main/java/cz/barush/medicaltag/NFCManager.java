@@ -103,7 +103,7 @@ public class NFCManager
             payload.write((byte) (langSize & 0x1F));
             payload.write(lang, 0, langSize);
             payload.write(text, 0, textLength);
-            NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT, new byte[0], payload.toByteArray());
+            NdefRecord record = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, "text/plain".getBytes(), new byte[0], payload.toByteArray());
             return new NdefMessage(new NdefRecord[]{record});
         }
         catch (Exception e)

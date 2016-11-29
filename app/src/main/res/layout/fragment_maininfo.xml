@@ -1,118 +1,119 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="700dp">
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="800dp"
-        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_marginBottom="50dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:orientation="vertical"
         tools:context="cz.barush.medicaltag.TagInfoActivity$PlaceholderFragment">
 
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tag_groupName"
+            android:layout_marginBottom="6dp"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"/>
+            android:text="@string/tag_groupName"/>
+
         <Spinner
             android:id="@+id/tag_groupName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/groupNames"/>
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"/>
 
-            <EditText
-                android:id="@+id/tag_name"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/tag_name"
-                android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/tag_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
+            android:hint="@string/tag_name"
+            android:inputType="textPersonName"/>
 
-            <DatePicker
-                android:id="@+id/tag_dateOfBirth"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:calendarViewShown="false"
-                android:datePickerMode="spinner"/>
+        <EditText
+            android:id="@+id/tag_dateOfBirth"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
+            android:hint="@string/tag_dateOfBirth"
+            android:inputType="date"/>
 
-            <AutoCompleteTextView
-                android:id="@+id/tag_state"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/tag_state"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"/>
+        <AutoCompleteTextView
+            android:id="@+id/tag_state"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
+            android:hint="@string/tag_state"/>
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tag_gender"
+            android:layout_marginBottom="6dp"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"/>
+            android:text="@string/tag_gender"/>
+
         <RadioGroup
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginBottom="6dp"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp">
+            android:orientation="horizontal">
 
-            <RadioButton android:id="@+id/tag_woman"
+            <RadioButton
+                android:id="@+id/tag_woman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tag_woman"
+                android:layout_marginRight="36dp"
                 android:onClick="changeIfPregnantVisibility"
-                android:layout_marginRight="36dp"/>
+                android:text="@string/tag_woman"/>
 
-            <RadioButton android:id="@+id/tag_man"
+            <RadioButton
+                android:id="@+id/tag_man"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tag_man"
+                android:layout_gravity="right"
                 android:onClick="changeIfPregnantVisibility"
-                android:layout_gravity="right"/>
+                android:text="@string/tag_man"/>
 
         </RadioGroup>
 
-        <CheckBox android:id="@+id/tag_pregnant"
+        <CheckBox
+            android:id="@+id/tag_pregnant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tag_isPregnant"
-            android:visibility="invisible"
+            android:layout_marginBottom="6dp"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"/>
+            android:text="@string/tag_isPregnant"
+            android:visibility="gone"/>
 
         <EditText
             android:id="@+id/tag_height"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/tag_height"
-            android:inputType="numberDecimal"
+            android:layout_marginBottom="6dp"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"/>
+            android:hint="@string/tag_height"
+            android:inputType="numberDecimal"/>
 
         <EditText
             android:id="@+id/tag_weight"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/tag_weight"
-            android:inputType="numberDecimal"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"/>
-
-        <EditText
-            android:id="@+id/tag_insurance"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/tag_insuranceInfo"
-            android:inputType="text"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"/>
-
-
+            android:inputType="numberDecimal"/>
 
     </LinearLayout>
 </ScrollView>

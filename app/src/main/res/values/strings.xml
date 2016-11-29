@@ -4,8 +4,7 @@
     <string name="title_activity_tutorial">How To Use Medical Tag</string>
     <string name="title_actvity_taginformation">Tag Information</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="action_about">About &amp; Rating</string>
+    <string name="action_about">About &amp; Settings</string>
 
     <string name="tag_groupName">Group name</string>
     <string name="tag_firstGroupName">Family</string>
@@ -17,12 +16,16 @@
     <string name="tag_isPregnant">Are you pregnant ?</string>
     <string name="tag_state">State</string>
     <string name="tag_insuranceInfo">Your insurance mediator</string>
-    <string name="tag_weight">Weight</string>
-    <string name="tag_height">Height</string>
+    <string name="tag_weight">Weight [kg]</string>
+    <string name="tag_height">Height [cm]</string>
     <string name="tag_bloodType">Blood group</string>
     <string name="tag_haveDiabetes">Do you have diabetes ?</string>
     <string name="tag_allergies">Allergies</string>
     <string name="tag_medicamentInUse">Medicaments in use</string>
+    <string name="tag_firstContact">Contact 1</string>
+    <string name="tag_secondContact">Contact 2</string>
+    <string name="tag_thirdContact">Contact 3</string>
+    <string name="tag_chooseContact">Choose contact from phonebook</string>
 
     <string name="tagPlease">Tag Medical Tag below the camera</string>
     <string name="tag_successfullyWritten">Your information was successfully saved to your Medical Tag :)</string>
@@ -36,7 +39,28 @@
     <string name="tag_upload">Upload To Tag</string>
 
     <string name="tab_myTags">My Tags</string>
-    <string name="tab_getTags">Get Tags</string>
+    <string name="tab_getBand">Get Band</string>
+    <string name="tab_getSticker">Get Sticker</string>
+    <string name="tag_reading">Reading Medical Tag</string>
+
+    <!--GET TAGS PAGE-->
+    <string name="gettags_bandtitle">Medical Tag BAND</string>
+    <string name="gettags_banddescription">NFC bands are useful equipment for children when going to camps, school trips or abroad.
+        Band is proper gadget for elderly people as well as for people with Alzheimer disease.
+        Thanks to the band, person can carry the most important and medical information everywhere with him/her. In case you consider buying big amount of bands and tags,
+        I advise you to shop bands and tags on Alibaba.com.  </string>
+    <string name="gettags_howtoband">How to make my NFC band ?</string>
+    <string name="gettags_buytagband">BUY TAG</string>
+    <string name="gettags_buyband">BUY BAND</string>
+
+    <string name="gettags_stickertitle">Medical Tag STICKER</string>
+    <string name="gettags_stickerdescription">NFC stickers are recommended equipment for all people who need to have
+        their medical information always with them and must have equipment for people who plan go skiing or do other type of dangerous sport.
+        Stick the sticker simply to your wallet or on your helmet for easier recognition of tag by ambulance.</string>
+    <string name="gettags_howtosticker">How to make my NFC sticker ?</string>
+    <string name="gettags_buytagsticker">BUY TAG</string>
+    <string name="gettags_getsticker">GET STICKER</string>
+
 
     <string-array name="countries_array">
         <item>Afghanistan</item>
@@ -253,5 +277,7 @@
         <item>Family</item>
         <item>Ski course - kvinta</item>
     </string-array>
+    <string name="title_activity_nfclaunch">NFCLaunchActivity</string>
+    <string name="title_activity_about_settings">AboutSettingsActivity</string>
 
 </resources>

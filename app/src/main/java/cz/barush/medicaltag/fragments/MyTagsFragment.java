@@ -1,18 +1,28 @@
 package cz.barush.medicaltag.fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import cz.barush.medicaltag.MainActivity;
 import cz.barush.medicaltag.R;
 import cz.barush.medicaltag.StaticPool;
 import cz.barush.medicaltag.TagInfoActivity;
+import cz.barush.medicaltag.model.Tag;
 
 /**
  * Created by Barbora on 26-Nov-16.
@@ -20,39 +30,38 @@ import cz.barush.medicaltag.TagInfoActivity;
 
 public class MyTagsFragment extends Fragment
 {
-    private LayoutInflater inf;
     ExpandableListView lv;
-    private String[] groups;
-    private String[][] children;
+    private List<String> groups;
+    private HashMap<String, List<Tag>> children;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        this.inf = inflater;
         return inflater.inflate(R.layout.fragment_mytags, container, false);
     }
 
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        groups = new String[]{"Test Family", "Test Lyzak"};
-        children = new String[2][20];
-        children[0][0] = "Barus Suchanova";
-        children[0][1] = "Klara Suchanova";
-        children[0][2] = "Martin Suchan";
+        //RAW DATA
+//        groups = new ArrayList<String>();
+//        groups.add("Rodina");
+//        groups.add("Lyžák kvinta");
+//        children = new HashMap<String, List<Tag>>();
+//        List<Tag> familyList = new ArrayList<>();
+//        familyList.add(new Tag("Barus Suchanova"));
+//        familyList.add(new Tag("Klara Suchanova"));
+//        familyList.add(new Tag("Martin Suchan"));
+//        children.put("Rodina", familyList);
+//
+//        List<Tag> schoolList = new ArrayList<>();
+//        schoolList.add(new Tag("Pavlach"));
+//        schoolList.add(new Tag("Novotass"));
+//        children.put("Lyžák kvinta", schoolList);
 
-        children[1][0] = "Pavlach";
-        children[1][1] = "Novotass";
-
-//        groups = (String[]) StaticPool.groupTags.keySet().toArray();
-//        children = new String[StaticPool.groupTags.size()][20];
-//        for (int i = 0; i < StaticPool.groupTags.size(); i++)
-//        {
-//            for (int j = 0; j < StaticPool.groupTags.get(i).size(); i++)
-//            {
-//                children[i][j] = StaticPool.groupTags.get(i).get(j).getName();
-//            }
-//        }
+        //REAL DATA
+        groups = new ArrayList<String>(StaticPool.groupTags.keySet());
+        children = StaticPool.groupTags;
     }
 
     @Override
@@ -60,119 +69,112 @@ public class MyTagsFragment extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
         lv = (ExpandableListView) view.findViewById(R.id.list_mytags);
-        lv.setAdapter(new ExpandableListAdapter(inf, groups, children));
-        lv.setGroupIndicator(null);
+        lv.setAdapter(new CustomExpandableListAdapter(getActivity().getApplicationContext(), groups, children));
+        Display newDisplay = getActivity().getWindowManager().getDefaultDisplay();
+        int width = newDisplay.getWidth();
+        lv.setIndicatorBounds(width - 136, width);
+        lv.setOnChildClickListener(new ExpandableListView.OnChildClickListener()
+        {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id)
+            {
+                Intent intent = new Intent(getActivity().getApplicationContext(), TagInfoActivity.class);
+                StaticPool.tagToSave = StaticPool.groupTags.get(groups.get(groupPosition)).get(childPosition);
+                startActivity(intent);
+                return true;
+            }
+        });
     }
 }
 
-class ExpandableListAdapter extends BaseExpandableListAdapter
+class CustomExpandableListAdapter extends BaseExpandableListAdapter
 {
-    private LayoutInflater inf;
-    private String[] groups;
-    private String[][] children;
+    private Context context;
+    private List<String> expandableListTitle;
+    private HashMap<String, List<Tag>> expandableListDetail;
 
-    public ExpandableListAdapter(LayoutInflater inf, String[] groups, String[][] children)
+    public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
+                                       HashMap<String, List<Tag>> expandableListDetail)
     {
-        this.groups = groups;
-        this.children = children;
-        this.inf = inf;
+        this.context = context;
+        this.expandableListTitle = expandableListTitle;
+        this.expandableListDetail = expandableListDetail;
+    }
+
+    @Override
+    public Object getChild(int listPosition, int expandedListPosition)
+    {
+        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition)).get(expandedListPosition).getName();
+    }
+
+    @Override
+    public long getChildId(int listPosition, int expandedListPosition)
+    {
+        return expandedListPosition;
+    }
+
+    @Override
+    public View getChildView(int listPosition, final int expandedListPosition, boolean isLastChild, View convertView, ViewGroup parent)
+    {
+        final String expandedListText = (String) getChild(listPosition, expandedListPosition);
+        if (convertView == null)
+        {
+            LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(R.layout.list_item, null);
+        }
+        TextView expandedListTextView = (TextView) convertView.findViewById(R.id.item_header);
+        expandedListTextView.setText(expandedListText);
+        return convertView;
+    }
+
+    @Override
+    public int getChildrenCount(int listPosition)
+    {
+        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition)).size();
+    }
+
+    @Override
+    public Object getGroup(int listPosition)
+    {
+        return this.expandableListTitle.get(listPosition);
     }
 
     @Override
     public int getGroupCount()
     {
-        return groups.length;
+        return this.expandableListTitle.size();
     }
 
     @Override
-    public int getChildrenCount(int groupPosition)
+    public long getGroupId(int listPosition)
     {
-        return children[groupPosition].length;
+        return listPosition;
     }
 
     @Override
-    public Object getGroup(int groupPosition)
+    public View getGroupView(int listPosition, boolean isExpanded, View convertView, ViewGroup parent)
     {
-        return groups[groupPosition];
-    }
-
-    @Override
-    public Object getChild(int groupPosition, int childPosition)
-    {
-        return children[groupPosition][childPosition];
-    }
-
-    @Override
-    public long getGroupId(int groupPosition)
-    {
-        return groupPosition;
-    }
-
-    @Override
-    public long getChildId(int groupPosition, int childPosition)
-    {
-        return childPosition;
+        String listTitle = (String) getGroup(listPosition);
+        if (convertView == null)
+        {
+            LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(R.layout.list_group, null);
+        }
+        TextView listTitleTextView = (TextView) convertView.findViewById(R.id.group_header);
+        listTitleTextView.setTypeface(null, Typeface.BOLD);
+        listTitleTextView.setText(listTitle);
+        return convertView;
     }
 
     @Override
     public boolean hasStableIds()
     {
-        return true;
+        return false;
     }
 
     @Override
-    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
-    {
-
-        ViewHolder holder;
-        if (convertView == null)
-        {
-            convertView = inf.inflate(R.layout.list_item, parent, false);
-            holder = new ViewHolder();
-
-            holder.text = (TextView) convertView.findViewById(R.id.item_header);
-            convertView.setTag(holder);
-        }
-        else
-        {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        holder.text.setText(getChild(groupPosition, childPosition).toString());
-        return convertView;
-    }
-
-    @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
-    {
-        ViewHolder holder;
-
-        if (convertView == null)
-        {
-            convertView = inf.inflate(R.layout.list_group, parent, false);
-
-            holder = new ViewHolder();
-            holder.text = (TextView) convertView.findViewById(R.id.group_header);
-            convertView.setTag(holder);
-        }
-        else
-        {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        holder.text.setText(getGroup(groupPosition).toString());
-
-        return convertView;
-    }
-
-    @Override
-    public boolean isChildSelectable(int groupPosition, int childPosition)
+    public boolean isChildSelectable(int listPosition, int expandedListPosition)
     {
         return true;
-    }
-
-    private class ViewHolder
-    {
-        TextView text;
     }
 }

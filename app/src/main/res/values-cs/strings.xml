@@ -4,8 +4,7 @@
     <string name="title_activity_tutorial">Jak se používá Medical Tag</string>
     <string name="title_actvity_taginformation">Informace na tagu</string>
 
-    <string name="action_settings">Nastavení</string>
-    <string name="action_about">O aplikaci &amp; Hodnocení</string>
+    <string name="action_about">O aplikaci &amp; Nastavení</string>
 
     <string name="tag_groupName">Jméno skupiny</string>
     <string name="tag_firstGroupName">Rodina</string>
@@ -17,12 +16,16 @@
     <string name="tag_isPregnant">Jste těhotná ?</string>
     <string name="tag_state">Stát</string>
     <string name="tag_insuranceInfo">Zprostředkovatel pojištění</string>
-    <string name="tag_weight">Váha</string>
-    <string name="tag_height">Výška</string>
+    <string name="tag_weight">Váha [kg]</string>
+    <string name="tag_height">Výška [cm]</string>
     <string name="tag_bloodType">Krevní skupina</string>
     <string name="tag_haveDiabetes">Máte cukrovku ?</string>
     <string name="tag_allergies">Alergie</string>
     <string name="tag_medicamentInUse">Aktuálně užívané léky</string>
+    <string name="tag_firstContact">Kontakt 1</string>
+    <string name="tag_secondContact">Kontakt 2</string>
+    <string name="tag_thirdContact">Kontakt 3</string>
+    <string name="tag_chooseContact">Vybrat kontakt z adresáře</string>
 
     <string name="tagPlease">Přiložte Medical Tag pod fotoaparát</string>
     <string name="tag_successfullyWritten">Vaše informace byly úspěšně uloženy do Vašeho Medical Tagu :)</string>
@@ -36,7 +39,28 @@
     <string name="tag_upload">Nahrát na Tag</string>
 
     <string name="tab_myTags">Mé Tagy</string>
-    <string name="tab_getTags">Získat Tagy</string>
+    <string name="tab_getBand">Získat nálepku</string>
+    <string name="tab_getSticker">Získat náramek</string>
+    <string name="tag_reading">Čtu Medical Tag</string>
+
+    <!--GET TAGS PAGE-->
+    <string name="gettags_bandtitle">Medical Tag NÁRAMEK</string>
+    <string name="gettags_banddescription">NFC náramky jsou užitečným doplňkem pro děti mířící na tábory, do zahraničí či na jiné kurzy.
+        Náramek je také velmi vhodný pro důchodce a lidi trpící Alzheimerovou chorobou. Díky náramku u sebe člověk může neustále nosit
+        důležité a zdravotní informace. V případě, že uvažujete o koupi a výrobě více NFC náramků či nálepek, doporučuji Vám
+        nakupovat náramky a NFC tagy přes portál Alibaba.com.</string>
+    <string name="gettags_howtoband">Jak vyrobit vlastní NFC náramek ?</string>
+    <string name="gettags_buytagband">KUP TAG</string>
+    <string name="gettags_buyband">KUP NÁRAMEK</string>
+
+    <string name="gettags_stickertitle">Medical Tag NÁLEPKA</string>
+    <string name="gettags_stickerdescription">NFC nálepky jsou doporučenou výbavou každého člověka, který potřebuje, aby
+        jeho zdravotní informace byly vždy po ruce. Povinnou výbavou je poté nálepka pro všechny lyžaře a sportovce nebezpečných sportů.
+        Nálepku si jednoduše nalepte buďto do peněženky a nebo v případě sportu přímo na helmu. Případná ambulance Váš tag poté bude moci rychleji
+        identifikovat.</string>
+    <string name="gettags_howtosticker">Jak vyrobit vlastní NFC nálepku ?</string>
+    <string name="gettags_buytagsticker">KUP TAG</string>
+    <string name="gettags_getsticker">ZÍSKAT NÁLEPKU</string>
 
     <string-array name="countries_array">
         <item>Afghánistán</item>

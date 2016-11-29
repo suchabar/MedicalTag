@@ -14,12 +14,12 @@ public class Tag
 
     String name;
     String dateOfBirth;
-    int gender;
+    //0 - woman, 1 - man, -1 - nothing
+    int gender = -1;
     boolean isPregnant;
     String state;
 
-    String insuranceInfo;
-    int emergencyContact;
+    //String insuranceInfo;
     int weight;
     int height;
     String bloodType;
@@ -28,15 +28,39 @@ public class Tag
     String allergies;
     String medicamentsInUse;
 
-    public Tag(String name, String dateOfBirth)
+    String emergencyContactTitle1;
+    String emergencyContact1;
+    String emergencyContactTitle2;
+    String emergencyContact2;
+
+    public Tag(String name)
     {
         this.name = name;
-        this.dateOfBirth = dateOfBirth;
     }
 
     public Tag()
     {
 
+    }
+
+    public Tag(Tag scannedTag)
+    {
+        this.group = scannedTag.group;
+        this.name = scannedTag.name;
+        this.dateOfBirth = scannedTag.dateOfBirth;
+        this.gender = scannedTag.gender;
+        this.isPregnant = scannedTag.isPregnant;
+        this.state = scannedTag.state;
+        this.weight = scannedTag.weight;
+        this.height = scannedTag.height;
+        this.bloodType = scannedTag.bloodType;
+        this.haveDiabetes = scannedTag.haveDiabetes;
+        this.allergies = scannedTag.allergies;
+        this.medicamentsInUse = scannedTag.medicamentsInUse;
+        this.emergencyContactTitle1 = scannedTag.emergencyContactTitle1;
+        this.emergencyContact1 = scannedTag.emergencyContact1;
+        this.emergencyContactTitle2 = scannedTag.emergencyContactTitle2;
+        this.emergencyContact2 = scannedTag.emergencyContact2;
     }
 
     public String getGroup()
@@ -99,25 +123,15 @@ public class Tag
         this.state = state;
     }
 
-    public String getInsuranceInfo()
-    {
-        return insuranceInfo;
-    }
-
-    public void setInsuranceInfo(String insuranceInfo)
-    {
-        this.insuranceInfo = insuranceInfo;
-    }
-
-    public int getEmergencyContact()
-    {
-        return emergencyContact;
-    }
-
-    public void setEmergencyContact(int emergencyContact)
-    {
-        this.emergencyContact = emergencyContact;
-    }
+//    public String getInsuranceInfo()
+//    {
+//        return insuranceInfo;
+//    }
+//
+//    public void setInsuranceInfo(String insuranceInfo)
+//    {
+//        this.insuranceInfo = insuranceInfo;
+//    }
 
     public int getWeight()
     {
@@ -179,9 +193,72 @@ public class Tag
         this.medicamentsInUse = medicamentsInUse;
     }
 
+    public String getEmergencyContactTitle1()
+    {
+        return emergencyContactTitle1;
+    }
+
+    public void setEmergencyContactTitle1(String emergencyContactTitle1)
+    {
+        this.emergencyContactTitle1 = emergencyContactTitle1;
+    }
+
+    public String getEmergencyContactTitle2()
+    {
+        return emergencyContactTitle2;
+    }
+
+    public void setEmergencyContactTitle2(String emergencyContactTitle2)
+    {
+        this.emergencyContactTitle2 = emergencyContactTitle2;
+    }
+//
+//    public String getEmergencyContactTitle3()
+//    {
+//        return emergencyContactTitle3;
+//    }
+//
+//    public void setEmergencyContactTitle3(String emergencyContactTitle3)
+//    {
+//        this.emergencyContactTitle3 = emergencyContactTitle3;
+//    }
+
+    public String getEmergencyContact1()
+    {
+        return emergencyContact1;
+    }
+
+    public void setEmergencyContact1(String emergencyContact1)
+    {
+        this.emergencyContact1 = emergencyContact1;
+    }
+
+    public String getEmergencyContact2()
+    {
+        return emergencyContact2;
+    }
+
+    public void setEmergencyContact2(String emergencyContact2)
+    {
+        this.emergencyContact2 = emergencyContact2;
+    }
+
+//    public String getEmergencyContact3()
+//    {
+//        return emergencyContact3;
+//    }
+//
+//    public void setEmergencyContact3(String emergencyContact3)
+//    {
+//        this.emergencyContact3 = emergencyContact3;
+//    }
+
     @Override
     public String toString()
     {
         return new Gson().toJson(this);
     }
+
+
+
 }
